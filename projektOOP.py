@@ -33,12 +33,14 @@ class BankAccount:
         for transaction in self.__transactions:
             print(f"- {transaction}")
 
-    def generate_account_number(self):
+    @staticmethod
+    def generate_account_number():
         # Generate a random 9-digit account number
         return ''.join(random.choice('0123456789') for _ in range(9))
 
 # Example usage of the BankAccount class
-account1 = BankAccount(account_number=account1.generate_account_number(), account_holder="John Doe", balance=1000)
+account_number = BankAccount.generate_account_number()
+account1 = BankAccount(account_number=account_number, account_holder="John Doe", balance=1000)
 
 account1.deposit(500)
 account1.withdraw(200)
