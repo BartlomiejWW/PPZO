@@ -1,47 +1,46 @@
 import random
 
-class BankAccount:
-    def __init__(self, account_number, account_holder, balance=0):
-        self.__account_number = account_number
-        self.__account_holder = account_holder
-        self.__balance = balance
-        self.__transactions = []
+class KontoBankowe:
+    def __init__(self, numer_konta, posiadacz_konta, saldo=0):
+        self.__numer_konta = numer_konta
+        self.__posiadacz_konta = posiadacz_konta
+        self.__saldo = saldo
+        self.__transakcje = []
 
-    def deposit(self, amount):
-        if amount > 0:
-            self.__balance += amount
-            self.__transactions.append(f"Deposit of {amount}$")
-            print(f"Deposit of {amount}$ successful. New balance: {self.__balance}$")
+    def wplata(self, kwota):
+        if kwota > 0:
+            self.__saldo += kwota
+            self.__transakcje.append(f"Wpłata {kwota} zł")
+            print(f"Wpłata {kwota} zł udana. Nowe saldo: {self.__saldo} zł")
         else:
-            print("Invalid deposit amount.")
+            print("Nieprawidłowa kwota wpłaty.")
 
-    def withdraw(self, amount):
-        if amount > 0 and amount <= self.__balance:
-            self.__balance -= amount
-            self.__transactions.append(f"Withdrawal of {amount}$")
-            print(f"Withdrawal of {amount}$ successful. New balance: {self.__balance}$")
-        elif amount <= 0:
-            print("Invalid withdrawal amount.")
+    def wyplata(self, kwota):
+        if kwota > 0 and kwota <= self.__saldo:
+            self.__saldo -= kwota
+            self.__transakcje.append(f"Wypłata {kwota} zł")
+            print(f"Wypłata {kwota} zł udana. Nowe saldo: {self.__saldo} zł")
+        elif kwota <= 0:
+            print("Nieprawidłowa kwota wypłaty.")
         else:
-            print("Insufficient funds.")
+            print("Niewystarczające środki.")
 
-    def display_info(self):
-        print(f"Account Number: {self.__account_number}")
-        print(f"Account Holder: {self.__account_holder}")
-        print(f"Balance: {self.__balance}$")
-        print("Transaction History:")
-        for transaction in self.__transactions:
-            print(f"- {transaction}")
+    def wyswietl_info(self):
+        print(f"Numer konta: {self.__numer_konta}")
+        print(f"Posiadacz konta: {self.__posiadacz_konta}")
+        print(f"Saldo: {self.__saldo} zł")
+        print("Historia transakcji:")
+        for transakcja in self.__transakcje:
+            print(f"- {transakcja}")
 
     @staticmethod
-    def generate_account_number():
-        # Generate a random 9-digit account number
+    def generuj_numer_konta():
         return ''.join(random.choice('0123456789') for _ in range(9))
 
-# Example usage of the BankAccount class
-account_number = BankAccount.generate_account_number()
-account1 = BankAccount(account_number=account_number, account_holder="John Doe", balance=1000)
+# Przykładowe użycie klasy KontoBankowe
+numer_konta = KontoBankowe.generuj_numer_konta()
+konto1 = KontoBankowe(numer_konta=numer_konta, posiadacz_konta="Jan Kowalski", saldo=1000)
 
-account1.deposit(500)
-account1.withdraw(200)
-account1.display_info()
+konto1.wplata(500)
+konto1.wyplata(200)
+konto1.wyswietl_info()
